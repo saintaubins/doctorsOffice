@@ -14,11 +14,11 @@ This project will be about a doctors office, where there can be many doctors, an
 
 ## Wireframes
 
-- [Initial Wireframe]
-(https://drive.google.com/open?id=1TPnErp5J4LCQNxsv1rNXwfaK4zTKr9oo)
-(https://drive.google.com/open?id=1RjxHWO-gHOuWQ0jm0hFIRD7qIi5055KM)
-(https://drive.google.com/open?id=0B7ROCI4yBH-tWnBRcDVrWjNwenJYbGY3WUs5ZUpIZVZPVFVF)
-(https://drive.google.com/open?id=1tMu0l-alVIBXs4ce6v9uxevDMuUmKNIw)
+![picture](planning/IMG_0308.jpg) 
+![picture](planning/IMG_0309.jpg)
+![picture](planning/IMG_0310.jpg)
+![picture](planning/IMG_0311.jpg)
+
 
 	- this is my initial thinking of how I want the site to work. The doctor will see the scheduled patients, and have notes and test results for that patient, medicine prescribed, and suggested follow ups.
 <!-- - [react architecture]() -->
