@@ -10,7 +10,7 @@ const config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
-console.log(process.env.REACT_APP_API_KEY)
+
 
 class Firebase {
   constructor() {
@@ -38,8 +38,11 @@ class Firebase {
   // *** User API ***
 
   user = uid => this.db.ref(`users/${uid}`);
-
+  doctor = did => this.db.ref(`doctors/${did}`);
+  patient = pid => this.db.ref(`patients/${pid}`);
   users = () => this.db.ref('users');
+  doctors = () => this.db.ref('doctors');
+  patients = () => this.db.ref('patients'); 
 }
 
 export default Firebase;

@@ -1,0 +1,41 @@
+ul {
+ 
+  list-style-type: none;
+  text-align: center; 
+  padding: 0;
+  margin: 0;
+  
+}
+li {
+  display: inline-block;
+  font-size: 20px;
+  padding: 20px;
+}
+button {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+a {
+    text-decoration: none;
+    color:black;
+    text-shadow: 1px 1px 1px rgb(201, 201, 154);
+    margin: 10px;
+   
+}
+form { 
+    margin: 5px;
+    border-radius: 2px;
+}
+body {
+    text-align: center;
+}
+.landingBg {
+    border-radius: 8px;
+    height: 50%;
+    width: 50%;
+    box-shadow: 15px 15px 15px rgb(201, 201, 154);
+    
+    
+
+
+}

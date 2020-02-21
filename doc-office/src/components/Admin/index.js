@@ -17,6 +17,7 @@ class AdminPage extends Component {
 
     this.props.firebase.users().on('value', snapshot => {
       const usersObject = snapshot.val();
+      console.log('this.props.firebase.users', usersObject)
 
       const usersList = Object.keys(usersObject).map(key => ({
         ...usersObject[key],
@@ -31,7 +32,7 @@ class AdminPage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.firebase.users().off();
+    // this.props.firebase.users().off();
   }
 
   render() {
@@ -57,10 +58,10 @@ const UserList = ({ users }) => (
           <strong>ID:</strong> {user.uid}
         </span>
         <span>
-          <strong>E-Mail:</strong> {user.email}
+          <strong>Age:</strong> {user.age}
         </span>
         <span>
-          <strong>Username:</strong> {user.username}
+          <strong>Username:</strong> {user.name}
         </span>
       </li>
     ))}
