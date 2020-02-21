@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Navigation/nav.css';
-import landing from '../../images/landing.jpg'
+import landing from '../../images/cover.jpg'
 
 const Landing = () => (
   <div>

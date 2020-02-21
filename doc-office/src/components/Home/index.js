@@ -17,9 +17,9 @@ class HomePage extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.doctors().on('value', snapshot => {
+    this.props.firebase.docOffices().on('value', snapshot => {
       const doctorsObject = snapshot.val();
-      console.log('this.props.firebase.doctors', doctorsObject)
+      console.log('this.props.firebase.docOffice', doctorsObject)
 
       const doctorsList = Object.keys(doctorsObject).map(key => ({
         ...doctorsObject[key],
@@ -53,11 +53,13 @@ class HomePage extends Component {
 }
 
 const DoctorList = ({ doctors }) => (
+  
   <ul >
     {doctors.map(doctor => (
       
       <a style={{display:'block'}} key={doctor.uid}>
-          <strong> Doctor's Name: </strong> {doctor.name} 
+          <strong> Doctor's Name: </strong> {doctor.name}{<br></br>}
+          <strong> Img: </strong> {doctor.pic} {<br></br>}
           <strong> ID: </strong> {doctor.uid}
       </a>
       

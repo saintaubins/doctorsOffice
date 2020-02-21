@@ -44,7 +44,36 @@ class App extends Component {
     })
 
     //.set data function
+let doctorListRef = firebase.database().ref('docOffice');
+let newDoctorRef = doctorListRef.push();
+newDoctorRef.set({
+  
+  "name":"Dr Oz",
+  "age":50,
+  "pic":"https://www.somepic.com/",
+  "patient": {
+    "name":"Jane Doe",
+    "BloodP":"120/40",
+    "rVisit":"Stomach ache"
+  }
+  
+});
+// We've appended a new message to the message_list location.
+let path = newDoctorRef.toString();
+console.log('path to message = ',path)
+// path will be something like
+// 'https://sample-app.firebaseio.com/message_list/-IKo28nwJLH0Nc5XeFmj'
 
+
+
+    // function writeUserData(userId, name, email, imageUrl) {
+    //   firebase.database().ref('doctors/' + userId).set({
+    //     username: name,
+    //     email: email,
+    //     profile_picture : imageUrl
+    //   });
+    // }
+    // writeUserData(20,'test','sombody@somewhere.com','http://something_somewhere.com')
     // setTimeout(() => {
     //   console.log('Firebase loaded',firebase)
     //   firebase.database().ref('doctors/002').set(
