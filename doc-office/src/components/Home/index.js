@@ -185,7 +185,7 @@ class HomePage extends Component {
 const DoctorList = ({ doctors }) => (
   <div>
     <ol className='docList'>
-      {doctors.map(doctor => (
+      {doctors.map((doctor, index) => (
         <li style={{
           display:'block',
           margin: '5%', 

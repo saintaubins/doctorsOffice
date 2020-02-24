@@ -47,6 +47,8 @@ class Patient extends Component {
             'rVisit':this.state.rVisit
           }
         })
+        .then(() => console.log('Data Written Successfully'))
+        .catch((error) => console.log('Firebase Error ', error))
     }
     handleCreate = (event) => {
         event.preventDefault();
@@ -61,13 +63,15 @@ class Patient extends Component {
                 "rVisit":this.state.rVisit
             }
           })
+            .then(() => console.log('Data Written Successfully'))
+            .catch((error) => console.log('Firebase Error ', error))
     }
     handledocId = (event) => {
     this.setState({docId: event.target.value});
     console.log('docId ='+`${this.state.docId}`)
     }
     handlePatNum = (event) => {
-        this.setState({docId: event.target.value});
+        this.setState({patNum: event.target.value});
         console.log('patNum ='+`${this.state.patNum}`)
     }    
     handleChangePatName(e){
@@ -109,25 +113,28 @@ class Patient extends Component {
     }
     render() {
         const link = this.props.match.params.myLink;
-        console.log('this.props from patients = ',this.props)
-        console.log('this.state.patients = ',this.state.patients)
+        // console.log('this.props from patients = ',this.props)
+        // console.log('this.state.patients = ',this.state.patients)
         let patItem = this.state.patients.find(item => link === item.patient.name)
         // this.setState({
         //     items: this.state.item
         // })
         
-        console.log('patItem = ', patItem)
-        console.log('this.state.patients[0] = ',this.state.patients[0])
-        console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
+        // console.log('patItem = ', patItem)
+        // console.log('this.state.patients[0] = ',this.state.patients[0])
+        // console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
         let pMap = this.state.patients.map( item => Object.values(item))
-        console.log('pMap = ', pMap)
+        //console.log('pMap = ', pMap)
         let patientFilter = [];
-        if(pMap[0]) {
-            let myFilter = pMap[0].filter(item => item.hasOwnProperty('patient'))
-            console.log('myFilter = ', myFilter)
-             patientFilter = myFilter.map(item => item.patient)
-            console.log('patientFilter',patientFilter)
-        } 
+        //for(let i=0; i <=pMap.length; i++){
+            //console.log('i =', i)
+            if(pMap[0]) {
+                let myFilter = pMap[0].filter(item => item.hasOwnProperty('patient'))
+                console.log('myFilter = ', myFilter)
+                patientFilter = myFilter.map(item => item.patient)
+                console.log('patientFilter',patientFilter)
+            //} 
+        }
 
         
         // if (!item) {
@@ -212,7 +219,7 @@ class Patient extends Component {
                         borderRadius:'15px',
                         padding:'1.5%',
                         textAlign:'center'
-                        }} key={patients.uid}>
+                    }} key={patients.uid}>
                         
                         <h2>{patients.name}</h2>
                         <img src={patients.image}
