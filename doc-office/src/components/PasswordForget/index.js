@@ -38,13 +38,17 @@ class PasswordForgetFormBase extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <input
+          style={{margin: '1%', borderRadius:'5px'}}
           name="email"
           value={this.state.email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
-        <button disabled={isInvalid} type="submit">
+        <button disabled={isInvalid} 
+          type="submit"
+          style={{margin: '1%', borderRadius:'5px', border:'1px solid black'}}
+          >
           Reset My Password
         </button>
         {error && <p>{error.message}</p>}

@@ -39,7 +39,7 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div>
+      <div style={{textAlign:'center'}}>
         <h1>Admin</h1>
 
         {loading && <div>Loading ...</div>}

@@ -3,7 +3,7 @@ import '../Navigation/nav.css';
 import landing from '../../images/cover.jpg'
 
 const Landing = () => (
-  <div>
+  <div style={{ textAlign: 'center'}}>
     <h1>Welcome to Doctor's Office</h1>
     <br></br>
     <br></br>
