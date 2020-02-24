@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withAuthorization } from '../Session';
+import firebase from 'firebase';
 
 class Patient extends Component {
     constructor(props){
@@ -10,12 +11,16 @@ class Patient extends Component {
             patName:'',
             bloodP:'',
             patPic:'',
-            rVisit:''
+            rVisit:'',
+            item: [],
+            docId: '',
+            patNum:''
         };
         this.handleChangePatName = this.handleChangePatName.bind(this);
         this.handleChangeBloodP = this.handleChangeBloodP.bind(this);
         this.handleChangePatPic = this.handleChangePatPic.bind(this);
         this.handleChangeReasonVisit = this.handleChangeReasonVisit.bind(this);
+
     }  
     //didn't have to bind this way
     submitHandler = (event) => {
@@ -26,7 +31,45 @@ class Patient extends Component {
         } 
         console.log('falsy = ', falsy)
       }
-
+    handleRead = () => {
+    firebase.database().ref('docOffice').on('value', (data) => {
+        console.log(' data from handleRead ', data.toJSON())
+    })
+    }
+    handleUpdate = (event) => {
+        event.preventDefault();
+        firebase.database().ref('docOffice/'+ this.state.docId).update({
+          'patient':{
+            "name":this.state.patName,
+            "image":this.state.patPic,
+            "BloodP":this.state.bloodP,
+            'phone':this.state.patNum,
+            'rVisit':this.state.rVisit
+          }
+        })
+    }
+    handleCreate = (event) => {
+        event.preventDefault();
+        let patListRef = firebase.database().ref('docOffice/'+this.state.docId+'/');
+        let newPatRef = patListRef.push();
+          newPatRef.set({
+              'patient': {
+                "name":this.state.patName,
+                "BloodP":this.state.bloodP,
+                'image':this.state.patPic,
+                'phone':this.state.patNum,
+                "rVisit":this.state.rVisit
+            }
+          })
+    }
+    handledocId = (event) => {
+    this.setState({docId: event.target.value});
+    console.log('docId ='+`${this.state.docId}`)
+    }
+    handlePatNum = (event) => {
+        this.setState({docId: event.target.value});
+        console.log('patNum ='+`${this.state.patNum}`)
+    }    
     handleChangePatName(e){
         this.setState({patName: e.target.value});
         console.log('patName ='+`${this.state.patName}`)
@@ -57,29 +100,53 @@ class Patient extends Component {
         patients: patsList,
         loading: false,
         }); 
-        console.log('this.state.doctors from Home directory = ', this.state.patients)
+        console.log('this.state.patients from Patients directory = ', this.state.patients)
     }); 
 
     }
     componentWillUnmount() {
-        this.props.firebase.docOffices().off();
+        //this.props.firebase.docOffices().off();
     }
     render() {
-
         const link = this.props.match.params.myLink;
         console.log('this.props from patients = ',this.props)
         console.log('this.state.patients = ',this.state.patients)
-        let item = this.state.patients.find(item => link === item.patient.name)
-        console.log('item.patient.name = ', item)
+        let patItem = this.state.patients.find(item => link === item.patient.name)
+        // this.setState({
+        //     items: this.state.item
+        // })
+        
+        console.log('patItem = ', patItem)
+        console.log('this.state.patients[0] = ',this.state.patients[0])
+        console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
+        let pMap = this.state.patients.map( item => Object.values(item))
+        console.log('pMap = ', pMap)
+        let patientFilter = [];
+        if(pMap[0]) {
+            let myFilter = pMap[0].filter(item => item.hasOwnProperty('patient'))
+            console.log('myFilter = ', myFilter)
+             patientFilter = myFilter.map(item => item.patient)
+            console.log('patientFilter',patientFilter)
+        } 
+
+        
         // if (!item) {
         //     return <div>Loading...</div>;
         // } else {
             console.log('link = ', link)
         return (
             <div style={{textAlign:'center'}}>
-                <h1>Patient Page</h1>
+                <h1>This Doctor's Patient's</h1>
                 <div>
                     <form>
+                        <input 
+                            style={{margin: '1%', borderRadius:'5px'}}
+                            type='text'
+                            placeholder = 'Doc Id'
+                            name='docId'
+                            value={this.state.docId}
+                            onChange={this.handledocId}
+                        />
                         <input 
                             style={{margin: '1%', borderRadius:'5px'}}
                             type='text'
@@ -107,48 +174,65 @@ class Patient extends Component {
                         <input
                             style={{margin: '1%', borderRadius:'5px'}} 
                             type='text'
+                            placeholder = 'Phone Number'
+                            name='patNum'
+                            value={this.state.patNum}
+                            onChange={this.handlePatNum}
+                        />
+                        <input
+                            style={{margin: '1%', borderRadius:'5px'}} 
+                            type='text'
                             placeholder = 'Reason Visit'
                             name='rVisit'
                             value={this.state.rVisit}
                             onChange={this.handleChangeReasonVisit}
                         />
-                        <input 
-                            style={{margin:'1%', borderRadius:'3px', border:'1px solid black'}}
-                            value='Create'
-                            type='submit'
-                        />
-                        <input 
-                            style={{margin:'1%', borderRadius:'3px', border:'1px solid black'}}
-                            value='Read'
-                            type='submit'
-                        />
-                        <input 
-                            style={{margin:'1%', borderRadius:'3px', border:'1px solid black'}}
-                            value='Update'
-                            type='submit'
-                        />
-                        <input 
-                            style={{margin:'1%', borderRadius:'3px', border:'1px solid black'}}
-                            value='Delete'
-                            type='submit'
-                        />
+                        <button onClick={this.handleCreate} style={{margin: '1%', borderRadius:'4px'}}>
+                            Create
+                        </button>
+                        <button onClick={this.handleRead} style={{margin: '1%', borderRadius:'4px'}}>
+                            Read
+                        </button>
+                        <button onClick={this.handleUpdate} style={{margin: '1%', borderRadius:'4px'}}>
+                            Update
+                        </button>
+                        <button onClick={this.handleDelete} style={{margin: '1%', borderRadius:'4px'}}>
+                            Delete
+                        </button>
                     </form>
                 </div>
-                <div style={{
-                    display:'block',
-                    margin: '2%', 
-                    width:'25%', 
-                    backgroundColor:'rgba(189, 182, 182, 0.5)', 
-                    boxShadow: '10px 10px 10px rgb(201, 201, 154)',
-                    borderRadius:'15px',
-                    padding:'1.5%',
-                    textAlign:'center'
-                }}>
-                    <h2>{link}</h2>
+                <div>
+                {patientFilter.map(patients => (
+                    <div style={{
+                        display:'block',
+                        margin: '2%', 
+                        width:'25%', 
+                        backgroundColor:'rgba(189, 182, 182, 0.5)', 
+                        boxShadow: '10px 10px 10px rgb(201, 201, 154)',
+                        borderRadius:'15px',
+                        padding:'1.5%',
+                        textAlign:'center'
+                        }} key={patients.uid}>
+                        
+                        <h2>{patients.name}</h2>
+                        <img src={patients.image}
+                            style={{
+                                width:'50%',
+                                borderRadius:'10px',
+                                boxShadow: '5px 5px 5px rgb(201, 201, 154)',
+                                margin:'5%'    
+                              }}></img>
+                        <h2>{patients.BloodP}</h2>
+                        <h2>{patients.phone}</h2>
+                        <h2>{patients.rVisit}</h2>
+                    </div>
+                ))}
+                
                 </div>
             </div>
         )
     }
 }
 const condition = authUser => !!authUser;
+
 export default withAuthorization(condition)(Patient);

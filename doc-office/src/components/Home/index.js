@@ -62,15 +62,9 @@ class HomePage extends Component {
     })
   }
 
-  handleDelete = (event, docId) => {
-    console.log('docId = ', this.state.docId)
+  handleDelete = (event) => {
     event.preventDefault();
-  //   if(this.state.docId == ((undefined) || (null))){
-  //     alert('this field cannot be empty')
-  //   } else {
       firebase.database().ref('docOffice/'+ this.state.docId).remove();
-  //  }
-    //this.setState({docId:' '})
   }
   
   handleId = (event) => {

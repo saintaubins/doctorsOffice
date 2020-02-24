@@ -131,7 +131,7 @@ class App extends Component {
                 handleChangePhoneNumber={this.handleChangePhoneNumber} 
                 {...props}
                 props={this.state.props}
-                docName={this.state.docName}
+                docName={this.state.items.docName}
                 docAdd={this.state.docAdd}
                 docNum={this.state.docNum} 
                 items={this.state.items}/>)} />

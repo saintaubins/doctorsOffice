@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Navigation/nav.css';
-import landing from '../../images/cover.jpg'
+import landing from '../../images/cover1.jpg'
 
 const Landing = () => (
   <div style={{ textAlign: 'center'}}>

@@ -6,7 +6,6 @@ body {
 }
 
 ul {
- 
   list-style-type: none;
   text-align: center; 
   padding: 0;
@@ -24,8 +23,7 @@ button {
 a {
     text-decoration: none;
     color:black;
-    /* margin: 5%; */
-   
+    /* margin: 5%; */  
 }
 .docList {
   display: grid;
@@ -38,7 +36,7 @@ a {
 }
 .landingBg {
     border-radius: 8px;
-    height: 75%;
+    /* height: 25%; */
     width: 75%;
     box-shadow: 15px 15px 15px rgb(201, 201, 154);
 }
