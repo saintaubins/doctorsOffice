@@ -15,7 +15,8 @@ class Patient extends Component {
             item: [],
             docId: '',
             patNum:'',
-            index: 0
+            index: 0,
+            groupId: 0
         };
         this.handleChangePatName = this.handleChangePatName.bind(this);
         this.handleChangeBloodP = this.handleChangeBloodP.bind(this);
@@ -67,10 +68,18 @@ class Patient extends Component {
             .then(() => console.log('Data Written Successfully'))
             .catch((error) => console.log('Firebase Error ', error))
     }
+    // handleDelete = (event) => {
+    //     event.preventDefault();
+    //     firebase.database().ref('docOffice/'+ this.state.docId).remove();
+    // }
     handledocId = (event) => {
     this.setState({docId: event.target.value});
     console.log('docId ='+`${this.state.docId}`)
     }
+    handlegroupId = (event) => {
+        this.setState({groupId: event.target.value});
+        console.log('groupId ='+`${this.state.groupId}`)
+        }
     handlePatNum = (event) => {
         this.setState({patNum: event.target.value});
         console.log('patNum ='+`${this.state.patNum}`)
@@ -125,12 +134,12 @@ class Patient extends Component {
         // console.log('this.state.patients[0] = ',this.state.patients[0])
         console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
         let pMap = this.state.patients.map( item => Object.values(item))
-        //console.log('pMap = ', pMap)
+        console.log('pMap = ', pMap)
         let patientFilter = [];
         //for(let i=0; i <=pMap.length; i++){
             //console.log('i =', i)
-            if(pMap[3]) {
-                let myFilter = pMap[3].filter((item, index) => item.hasOwnProperty('patient'))
+            if(pMap[this.state.groupId]) {
+                let myFilter = pMap[this.state.groupId].filter((item, index) => item.hasOwnProperty('patient'))
                 console.log('myFilter = ', myFilter)
                 patientFilter = myFilter.map(item => item.patient)
                 console.log('patientFilter',patientFilter)
@@ -154,6 +163,14 @@ class Patient extends Component {
                             name='docId'
                             value={this.state.docId}
                             onChange={this.handledocId}
+                        />
+                        <input 
+                            style={{margin: '1%', borderRadius:'5px'}}
+                            type='text'
+                            placeholder = 'Group Id'
+                            name='groupId'
+                            value={this.state.groupId}
+                            onChange={this.handlegroupId}
                         />
                         <input 
                             style={{margin: '1%', borderRadius:'5px'}}

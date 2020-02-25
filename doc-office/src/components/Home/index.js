@@ -14,7 +14,8 @@ class HomePage extends Component {
       docNum: '',
       docPic: '',
       docId:'',
-      falsy: null
+      falsy: null,
+      docState:''
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePic = this.handleChangePic.bind(this);
@@ -42,6 +43,8 @@ class HomePage extends Component {
         
         }
       })
+      .then(() => console.log('Data Written Successfully'))
+      .catch((error) => console.log('Firebase Error ', error))
   }
 
   handleRead = (event) => {
@@ -60,11 +63,18 @@ class HomePage extends Component {
         'phone':this.state.docNum
       }
     })
+      .then(() => console.log('Data Written Successfully'))
+      .catch((error) => console.log('Firebase Error ', error))
   }
 
   handleDelete = (event) => {
     event.preventDefault();
-      firebase.database().ref('docOffice/'+ this.state.docId).remove();
+    firebase.database().ref('docOffice/'+ this.state.docId).remove();
+  }
+
+  handleDocSate = (event) => {
+    event.preventDefault();
+    console.log('docState active')
   }
   
   handleId = (event) => {
@@ -198,6 +208,7 @@ const DoctorList = ({ doctors }) => (
         }} key={doctor.uid}>
             <Link to={'/Patient/'+ doctor.patient.name}>
               <strong> Doctor's Name: </strong> {doctor.doc.name}{<br></br>}
+              {/* <strong>Doctor's Index: </strong> {doctor.index} */}
               <img src={doctor.doc.pic}
               style={{
                 width:'60%',

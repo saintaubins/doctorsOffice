@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 const PasswordForgetPage = () => (
-  <div>
+  <div style={{textAlign: 'center'}}> 
     <h1>PasswordForget</h1>
     <PasswordForgetForm />
   </div>

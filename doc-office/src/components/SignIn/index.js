@@ -6,7 +6,7 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 const SignInPage = () => (
-  <div>
+  <div style={{textAlign: 'center'}}>
     <h1>SignIn</h1>
     <SignInForm />
     <PasswordForgetLink />
