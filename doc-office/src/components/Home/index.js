@@ -193,14 +193,14 @@ const DoctorList = ({ doctors }) => (
           backgroundColor:'rgba(189, 182, 182, 0.5)', 
           boxShadow: '10px 10px 10px rgb(201, 201, 154)',
           borderRadius:'15px',
-          padding:'10%',
+          padding:'3%',
           textAlign:'center'
         }} key={doctor.uid}>
             <Link to={'/Patient/'+ doctor.patient.name}>
               <strong> Doctor's Name: </strong> {doctor.doc.name}{<br></br>}
               <img src={doctor.doc.pic}
               style={{
-                width:'50%',
+                width:'60%',
                 borderRadius:'10px',
                 boxShadow: '5px 5px 5px rgb(201, 201, 154)',
                 margin:'5%'    

@@ -14,7 +14,8 @@ class Patient extends Component {
             rVisit:'',
             item: [],
             docId: '',
-            patNum:''
+            patNum:'',
+            index: 0
         };
         this.handleChangePatName = this.handleChangePatName.bind(this);
         this.handleChangeBloodP = this.handleChangeBloodP.bind(this);
@@ -122,14 +123,14 @@ class Patient extends Component {
         
         // console.log('patItem = ', patItem)
         // console.log('this.state.patients[0] = ',this.state.patients[0])
-        // console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
+        console.log('this.props.match.params.myLink =',this.props.match.params.myLink)
         let pMap = this.state.patients.map( item => Object.values(item))
         //console.log('pMap = ', pMap)
         let patientFilter = [];
         //for(let i=0; i <=pMap.length; i++){
             //console.log('i =', i)
-            if(pMap[0]) {
-                let myFilter = pMap[0].filter(item => item.hasOwnProperty('patient'))
+            if(pMap[3]) {
+                let myFilter = pMap[3].filter((item, index) => item.hasOwnProperty('patient'))
                 console.log('myFilter = ', myFilter)
                 patientFilter = myFilter.map(item => item.patient)
                 console.log('patientFilter',patientFilter)
@@ -208,30 +209,30 @@ class Patient extends Component {
                         </button>
                     </form>
                 </div>
-                <div>
+                <div className='docList'>
                 {patientFilter.map(patients => (
                     <div style={{
                         display:'block',
-                        margin: '2%', 
-                        width:'25%', 
+                        margin: '5%', 
+                        width:'55%', 
                         backgroundColor:'rgba(189, 182, 182, 0.5)', 
                         boxShadow: '10px 10px 10px rgb(201, 201, 154)',
                         borderRadius:'15px',
-                        padding:'1.5%',
+                        padding:'3%',
                         textAlign:'center'
                     }} key={patients.uid}>
                         
                         <h2>{patients.name}</h2>
                         <img src={patients.image}
                             style={{
-                                width:'50%',
+                                width:'60%',
                                 borderRadius:'10px',
                                 boxShadow: '5px 5px 5px rgb(201, 201, 154)',
                                 margin:'5%'    
-                              }}></img>
-                        <h2>{patients.BloodP}</h2>
-                        <h2>{patients.phone}</h2>
-                        <h2>{patients.rVisit}</h2>
+                              }}></img>{<br></br>}
+                        <strong>BloodPressure: </strong>{patients.BloodP}{<br></br>}
+                        <strong>Phone number: </strong>{patients.phone}{<br></br>}
+                        <strong>Reason to Visit: </strong>{patients.rVisit}
                     </div>
                 ))}
                 
